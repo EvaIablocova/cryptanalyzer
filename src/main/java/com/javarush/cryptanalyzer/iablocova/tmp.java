@@ -42,62 +42,59 @@ public class tmp {
         // key for decode - int
         // Should get: cifertext - output.txt
 
-        String exampleOfFile = "привет,   A";
+        String exampleOfFile = "Cfv самые СложныЕ знаки, преп !";
 
         Scanner scanner = new Scanner (System.in);
+        boolean t = true;
+        int keyForEncode=0;
+        while (t){
         System.out.println("Введите ключ для кодирования:");
-        int keyForEncode = scanner.nextInt();
-        keyForEncode = keyForEncode % CryptoAlphabet.ALPHABET.length(); // целое число смещений
+        if (scanner.hasNextInt()) {keyForEncode = scanner.nextInt();
+            keyForEncode = keyForEncode % CryptoAlphabet.ALPHABET.length(); // целое число смещений
+            t = false; }
+        else System.out.println("Введите целое число");
+        }
+
         scanner.close();
 
         System.out.println("start " + exampleOfFile);
 
-        //идем по алфавиту
-
-//        int count = CryptoAlphabet.ALPHABET.length();
-//        for (int i = 0; i < count; i++) {
-//            char currentChar = CryptoAlphabet.ALPHABET.charAt(i);
-//            if (exampleOfFile.contains(Character.toString (currentChar))){
-//            if (i< count - keyForEncode)
-//                exampleOfFile = exampleOfFile.replace (currentChar, CryptoAlphabet.ALPHABET.charAt(i+keyForEncode));
-//            else if (i>= count - keyForEncode)
-//                exampleOfFile = exampleOfFile.replace (currentChar, CryptoAlphabet.ALPHABET.charAt(i+keyForEncode - count + 1));
-//        }}
-//
-//        System.out.println(exampleOfFile);
-
         //идем по строке
         int count = exampleOfFile.length();
+        int lengthOfAlphabet = CryptoAlphabet.ALPHABET.length();
+        char [] newExampleOfFile = exampleOfFile.toCharArray();
 
         for (int i = 0; i < count; i++) {
-            char currentChar = exampleOfFile.charAt(i);
-            int currentIndex = CryptoAlphabet.ALPHABET.indexOf (currentChar);
-                if (currentIndex + keyForEncode < CryptoAlphabet.ALPHABET.length())
-                    exampleOfFile = exampleOfFile.replace (currentChar, CryptoAlphabet.ALPHABET.charAt(currentIndex+keyForEncode));
-                else if (currentIndex + keyForEncode >= CryptoAlphabet.ALPHABET.length())
-                    exampleOfFile = exampleOfFile.replace (currentChar, CryptoAlphabet.ALPHABET.charAt(currentIndex+keyForEncode - CryptoAlphabet.ALPHABET.length() + 1));
-            }
+            int currentIndex = CryptoAlphabet.ALPHABET.indexOf (newExampleOfFile [i]);
+            if (currentIndex != -1){// если этот символ есть в нашем алфавите
+                if (currentIndex + keyForEncode < lengthOfAlphabet) {
+                    newExampleOfFile [i] = CryptoAlphabet.ALPHABET.charAt(currentIndex + keyForEncode + 1);
+                }else if (currentIndex + keyForEncode >= CryptoAlphabet.ALPHABET.length())
+                    newExampleOfFile [i] = CryptoAlphabet.ALPHABET.charAt(currentIndex+keyForEncode + 1 - lengthOfAlphabet);
+            }}
 
-        System.out.println(exampleOfFile);
+        System.out.println(newExampleOfFile);
 
         //Decode
         //I have: cifertext- input.txt
         // key for decode - int
         // Should get: right text - output.txt
 
-
         for (int i = 0; i < count; i++) {
-            char currentChar = exampleOfFile.charAt(i);
-            int currentIndex = CryptoAlphabet.ALPHABET.indexOf (currentChar);
-            int newIndex = currentIndex - keyForEncode;
+            int currentIndex = CryptoAlphabet.ALPHABET.indexOf (newExampleOfFile [i]);
+            if (currentIndex != -1){// если этот символ есть в нашем алфавите
+            int newIndex = currentIndex - keyForEncode-1;
             if (newIndex >= 0)
-                exampleOfFile = exampleOfFile.replace (currentChar, CryptoAlphabet.ALPHABET.charAt(newIndex));
+                newExampleOfFile [i] =CryptoAlphabet.ALPHABET.charAt(newIndex);
             else if (newIndex < 0)
-                exampleOfFile = exampleOfFile.replace (currentChar, CryptoAlphabet.ALPHABET.charAt(CryptoAlphabet.ALPHABET.length()+ newIndex));
-        }
+                newExampleOfFile [i] = CryptoAlphabet.ALPHABET.charAt(lengthOfAlphabet + newIndex );
+        }}
 
-        System.out.println(exampleOfFile);
+        System.out.println(newExampleOfFile);
 
+
+        //брут форс перебираем ключи, сравниваем по количеству совпавших регулярок - сохраняем вариант где наибольшее количство совпрадений
+        //инкод, декод с файла
 
     }
 }
