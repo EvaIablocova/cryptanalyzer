@@ -2,7 +2,7 @@ package com.javarush.cryptanalyzer.iablocova.view;
 
 import com.javarush.cryptanalyzer.iablocova.entity.Result;
 
-public class GUIView {
+public class GUIView implements View{
 
     @Override
     // TODO finish GUIView getParameters method
