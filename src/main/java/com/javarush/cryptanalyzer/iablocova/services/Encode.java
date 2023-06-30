@@ -13,6 +13,8 @@ public class Encode implements Function{
         //keyForShift - from parameters
         int  keyForEncode =5;
 
+        Result execute (String[] parameters){
+
         try (BufferedReader reader = new BufferedReader(new FileReader("input.txt"))) {
             StringBuilder encryptedText = new StringBuilder();
 
@@ -32,8 +34,8 @@ public class Encode implements Function{
                 }
         return null;
         } catch (Exception e){
-            return new Result(ResultCode.ERROR, new ApplicationException("Encode operation finish with exception", e));
+            return new Result(ResultCode.ERROR, new ApplicationException("Encode operation finish with exception ", e));
         }
-        return new Result(ResultCode.OK);
+        return new Result(ResultCode.OK);};
     }
 }
