@@ -7,17 +7,16 @@ import com.javarush.cryptanalyzer.iablocova.entity.Result;
 import com.javarush.cryptanalyzer.iablocova.exception.ApplicationException;
 import com.javarush.cryptanalyzer.iablocova.repository.ResultCode;
 
+import static com.javarush.cryptanalyzer.iablocova.constants.ApplicationCompletionConstants.EXCEPTION;
+
 public class Encode implements Function{
     @Override
     public Result execute (String[] parameters){
-        //keyForShift - from parameters
-        int  keyForEncode =5;
 
-        Result execute (String[] parameters){
-
-        try (BufferedReader reader = new BufferedReader(new FileReader("input.txt"))) {
+        try (BufferedReader reader = new BufferedReader(new FileReader(parameters[1]))) {
             StringBuilder encryptedText = new StringBuilder();
 
+            int  keyForEncode = Integer.parseInt (parameters[2]);
             int character;
             while ((character = reader.read()) != -1) {
                 int currentIndex = CryptoAlphabet.ALPHABET.indexOf((char)character);
@@ -32,10 +31,15 @@ public class Encode implements Function{
 
                     encryptedText.append(encryptedChar);
                 }
-        return null;
+//        return null;
+
+            try (FileWriter fileWriter = new FileWriter(parameters[3])) {
+                fileWriter.write(encryptedText.toString());
+            } catch (IOException e) {
+                System.out.println(EXCEPTION + e.getMessage());
+            }
         } catch (Exception e){
             return new Result(ResultCode.ERROR, new ApplicationException("Encode operation finish with exception ", e));
         }
-        return new Result(ResultCode.OK);};
+        return new Result(ResultCode.OK);}
     }
-}
