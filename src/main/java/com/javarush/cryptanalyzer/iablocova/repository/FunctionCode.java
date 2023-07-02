@@ -1,9 +1,6 @@
 package com.javarush.cryptanalyzer.iablocova.repository;
 
-import com.javarush.cryptanalyzer.iablocova.services.Decode;
-import com.javarush.cryptanalyzer.iablocova.services.Encode;
-import com.javarush.cryptanalyzer.iablocova.services.Function;
-import com.javarush.cryptanalyzer.iablocova.services.UnsupportedFunction;
+import com.javarush.cryptanalyzer.iablocova.services.*;
 
 public enum FunctionCode {
     /**
