@@ -24,17 +24,26 @@ public class Encode implements Function{
 
                 if (currentIndex != -1) {// если этот символ есть в нашем алфавите
                         if (currentIndex + keyForEncode < CryptoAlphabet.lengthOfAlphabet) {
-                            encryptedChar = CryptoAlphabet.ALPHABET.charAt(currentIndex + keyForEncode + 1);
+                            encryptedChar = CryptoAlphabet.ALPHABET.charAt(currentIndex + keyForEncode);
                         } else if (currentIndex + keyForEncode >= CryptoAlphabet.ALPHABET.length())
-                            encryptedChar = CryptoAlphabet.ALPHABET.charAt(currentIndex + keyForEncode + 1 - CryptoAlphabet.lengthOfAlphabet);
+                            encryptedChar = CryptoAlphabet.ALPHABET.charAt(currentIndex + keyForEncode - CryptoAlphabet.lengthOfAlphabet);
                     }
 
                     encryptedText.append(encryptedChar);
                 }
 //        return null;
 
-            try (FileWriter fileWriter = new FileWriter(parameters[3])) {
-                fileWriter.write(encryptedText.toString());
+            try {
+                File file = new File(parameters[3]);
+                if (!file.exists()) {
+                    file.createNewFile();
+                }
+
+                FileWriter writer = new FileWriter(file, false);
+                writer.write(encryptedText.toString());
+                writer.write(System.lineSeparator());
+                writer.close();
+
             } catch (IOException e) {
                 System.out.println(EXCEPTION + e.getMessage());
             }

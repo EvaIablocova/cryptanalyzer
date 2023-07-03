@@ -23,7 +23,7 @@ public class Decode implements Function{
                 char encryptedChar = (char) character;
 
                 if (currentIndex != -1) {// если этот символ есть в нашем алфавите
-                    int newIndex = currentIndex - keyForDecode - 1;
+                    int newIndex = currentIndex - keyForDecode;
                     if (newIndex >= 0) {
                         encryptedChar = CryptoAlphabet.ALPHABET.charAt(newIndex);
                     } else if (newIndex < 0)
