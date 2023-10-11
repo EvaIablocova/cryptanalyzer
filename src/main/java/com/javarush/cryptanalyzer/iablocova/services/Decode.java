@@ -22,6 +22,15 @@ public class Decode implements Function{
                 int currentIndex = CryptoAlphabet.ALPHABET.indexOf((char)character);
                 char encryptedChar = (char) character;
 
+
+//                if (currentIndex != -1) {// если этот символ есть в нашем алфавите
+//                    if (currentIndex + keyForEncode < CryptoAlphabet.lengthOfAlphabet) {
+//                        encryptedChar = CryptoAlphabet.ALPHABET.charAt(currentIndex + keyForEncode);
+//                    } else if (currentIndex + keyForEncode >= CryptoAlphabet.ALPHABET.length())
+//                        encryptedChar = CryptoAlphabet.ALPHABET.charAt(currentIndex + keyForEncode - CryptoAlphabet.lengthOfAlphabet);
+//                }
+//
+
                 if (currentIndex != -1) {// если этот символ есть в нашем алфавите
                     int newIndex = currentIndex - keyForDecode;
                     if (newIndex >= 0) {

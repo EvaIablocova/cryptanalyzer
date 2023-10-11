@@ -14,4 +14,9 @@ public class GUIView implements View{
     public void printResult (Result result){
 
     }
+
+    @Override
+    public boolean repeat() {
+       return true;
+    }
 }

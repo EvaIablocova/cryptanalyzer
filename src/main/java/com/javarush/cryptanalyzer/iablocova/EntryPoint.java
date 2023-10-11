@@ -10,14 +10,18 @@ import com.javarush.cryptanalyzer.iablocova.view.View;
 public class EntryPoint {
     public static void main (String[] args){
 
-        //спрашивать в начале какой view -> создаем view
-        View view = new ConsoleView();
-        MainController mainController = new MainController(view);
-        Application application = new Application(mainController);
+        boolean t = true;
+        while (t) {
 
-        Result result = application.run();
-        application.printResult(result);
+            //спрашивать в начале какой view -> создаем view
+            View view = new ConsoleView();
+            MainController mainController = new MainController(view);
+            Application application = new Application(mainController);
 
+            Result result = application.run();
+            application.printResult(result);
 
+            t = view.repeat();
+        }
     }
 }
